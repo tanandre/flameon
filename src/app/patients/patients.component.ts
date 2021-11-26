@@ -14,6 +14,13 @@ interface Entry {
 interface Patient {
   id: string;
   resourceType: string;
+  birthDate: string;
+  gender: string;
+  name: Name[];
+}
+
+interface Name {
+  given: string[];
 }
 
 @Component({
