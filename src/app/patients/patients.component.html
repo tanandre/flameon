@@ -1,0 +1,7 @@
+<div>patients works! 
+    <div *ngIf="response | async as bundle; else loading">{{bundle.entry.length}}
+        <div *ngFor="let entry of bundle.entry; index as i" >{{entry.resource.id}}</div>
+    </div>
+
+    <ng-template #loading><div>loading</div></ng-template>
+</div>
