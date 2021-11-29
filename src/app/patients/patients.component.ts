@@ -4,12 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 interface Bundle {
-  entry: Entry[]
+  entry: Entry[];
 }
 
 interface Entry {
-  resource: Patient
-  fullUrl: string
+  resource: Patient;
+  fullUrl: string;
 }
 
 interface Patient {
@@ -21,18 +21,16 @@ interface Patient {
 }
 
 interface Name {
-  given: string[]
-  family: string,
-  prefix: string
+  given: string[];
+  family: string;
+  prefix: string;
 }
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
-  styleUrls: ['./patients.component.css']
+  styleUrls: ['./patients.component.css'],
 })
-
-
 export class PatientsComponent implements OnInit {
   data: any;
   response: Observable<Bundle>;
@@ -46,25 +44,26 @@ export class PatientsComponent implements OnInit {
     this.search();
   }
 
-  constructor(private client: HttpClient) {
-  }
+  constructor(private client: HttpClient) {}
 
   ngOnInit(): void {
     console.log(this);
     this.search();
-
   }
 
   search(): void {
     this.error = null;
-    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {
-      params: {
-        family: 'smith'
-      }
-    }).pipe(catchError((err: any) => {
-      this.error = err;
-      return throwError(() => err);
-    }));
+    this.response = this.client
+      .get<Bundle>(`${this.baseUrl}Patient`, {
+        params: {
+          family: 'smith',
+        },
+      })
+      .pipe(
+        catchError((err: any) => {
+          this.error = err;
+          return throwError(() => err);
+        })
+      );
   }
-
 }

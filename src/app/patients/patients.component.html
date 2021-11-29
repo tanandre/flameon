@@ -1,21 +1,35 @@
 <div>
-    <h1>Patient List
-        <span *ngIf="response | async as bundle"> ({{bundle.entry.length}})</span>
-    </h1>
-    <div *ngIf="response | async as bundle; else loadingOrError" class="container">
-        <div *ngFor="let entry of bundle.entry; index as i" class="card">{{entry.resource.id}}
-            <div>
-                Name:<span *ngFor="let name of entry.resource.name">{{name.prefix}} {{name.given}} {{name.family}}</span>
-            </div>
-            <div>Birthdate: {{entry.resource.birthDate}}</div>
-            <a href="{{entry.fullUrl}}">Open</a>
-            <br/>
-            <a href="{{baseUrl}}DocumentReference?patient={{entry.resource.id}}">Documents</a>
+  <h1>
+    Patient List
+    <span *ngIf="response | async as bundle"> ({{ bundle.entry.length }})</span>
+  </h1>
+  <div
+    *ngIf="response | async as bundle; else loadingOrError"
+    class="container"
+  >
+    <div *ngFor="let entry of bundle.entry; index as i" class="card">
+      <div class="avatar {{ entry.resource.gender }}"></div>
+      <div class="info">
+        {{ entry.resource.id }}
+        <div>
+          Name:<span *ngFor="let name of entry.resource.name"
+            >{{ name.prefix }} {{ name.given }} {{ name.family }}</span
+          >
         </div>
+        <div>Birthdate: {{ entry.resource.birthDate }}</div>
+        <a href="{{ entry.fullUrl }}">Open</a>
+        <br />
+        <a href="{{ baseUrl }}DocumentReference?patient={{ entry.resource.id }}"
+          >Documents</a
+        >
+      </div>
     </div>
+  </div>
 
-    <ng-template #loadingOrError>
-        <div *ngIf="error != null; else loading">An error occurred: {{error.message}}</div>
-        <ng-template #loading>loading...</ng-template>
-    </ng-template>
+  <ng-template #loadingOrError>
+    <div *ngIf="error != null; else loading">
+      An error occurred: {{ error.message }}
+    </div>
+    <ng-template #loading>loading...</ng-template>
+  </ng-template>
 </div>
