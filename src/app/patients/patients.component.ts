@@ -36,6 +36,7 @@ interface Name {
 export class PatientsComponent implements OnInit {
   data: any;
   response: Observable<Bundle>;
+  error: any = null;
 
   @Input()
   baseUrl: string;
@@ -55,7 +56,11 @@ export class PatientsComponent implements OnInit {
   }
 
   search(): void {
-    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {});
+    this.error = null;
+    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {}).pipe(catchError((err: any) => {
+      this.error = err;
+      return throwError(() => err);
+    }));
   }
 
 }

@@ -2,7 +2,7 @@
     <h1>Patient List
         <span *ngIf="response | async as bundle"> ({{bundle.entry.length}})</span>
     </h1>
-    <div *ngIf="response | async as bundle; else loading">
+    <div *ngIf="response | async as bundle; else loadingOrError">
         <div *ngFor="let entry of bundle.entry; index as i">{{entry.resource.id}}
             <div>
                 Name:<span *ngFor="let name of entry.resource.name">{{name.prefix}} {{name.given}} {{name.family}}</span>
@@ -15,7 +15,8 @@
         </div>
     </div>
 
-    <ng-template #loading>
-        <div>loading</div>
+    <ng-template #loadingOrError>
+        <div *ngIf="error != null; else loading">An error occurred: {{error.message}}</div>
+        <ng-template #loading>loading...</ng-template>
     </ng-template>
 </div>
