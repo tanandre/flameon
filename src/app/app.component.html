@@ -17,7 +17,6 @@
     <input type="search" [(ngModel)]="url" (keyup.enter)="search(url)" />
   </div>
 
-  
   <div class="form">
     <label> Family: </label>
     <input type="search" [(ngModel)]="family" (keyup.enter)="search(url)" />
@@ -30,12 +29,15 @@
   </div>
   <h1>
     Patient List
-    <span *ngIf="response | async as bundle"> ({{ bundle.entry ? bundle.entry.length : 0 }})</span>
+    <span *ngIf="response | async as bundle">
+      ({{ bundle.entry ? bundle.entry.length : 0 }})</span
+    >
   </h1>
   <div
     *ngIf="response | async as bundle; else loadingOrError"
     class="container"
   >
+    <div><button *ngFor="let link of bundle.link" (click)="searchWithParams(link.url, {})">{{ link.relation }}</button></div>
     <div *ngIf="bundle.total === 0; else patientList">No results</div>
     <ng-template #patientList>
       <app-patients [entries]="bundle.entry"></app-patients>

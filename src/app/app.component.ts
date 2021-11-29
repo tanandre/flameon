@@ -23,6 +23,22 @@ export class AppComponent {
     this.search(this.url);
   }
 
+  searchWithParams(url: string, params: any): void {
+    this.error = null;
+
+
+    this.response = this.client
+      .get<Bundle>(`${url}Patient`, {
+        params
+      })
+      .pipe(
+        catchError((err: any) => {
+          this.error = err;
+          return throwError(() => err);
+        })
+      );
+  }
+
   search(url: string): void {
     this.error = null;
 

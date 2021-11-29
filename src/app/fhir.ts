@@ -1,5 +1,6 @@
 export interface Bundle {
   entry: Entry[];
+  link: Link[];
   total: number;
 }
 
@@ -20,4 +21,9 @@ export interface Name {
   given: string[];
   family: string;
   prefix: string;
+}
+
+export interface Link {
+    relation: string;
+    url: string;
 }
