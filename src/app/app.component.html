@@ -27,6 +27,10 @@
   <div>
     <button (click)="search(url)">Search</button>
   </div>
+  <h1>
+    Patient List
+    <span *ngIf="response | async as bundle"> ({{ bundle.entry ? bundle.entry.length : 0 }})</span>
+  </h1>
   <div
     *ngIf="response | async as bundle; else loadingOrError"
     class="container"

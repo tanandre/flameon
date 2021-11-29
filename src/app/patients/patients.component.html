@@ -1,8 +1,4 @@
 <div>
-  <h1>
-    Patient List
-    <span> ({{ entries.length }})</span>
-  </h1>
   <div class="container">
     <div *ngFor="let entry of entries; index as i" class="card">
       <div class="avatar {{ entry.resource.gender }}"></div>
