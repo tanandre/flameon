@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'flameon';
+  url = 'https://hapi.fhir.org/baseR4/';
+  
   ngOnInit(): void {
     console.log('test');
   }
