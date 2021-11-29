@@ -11,7 +11,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class AppComponent {
   url = 'https://hapi.fhir.org/baseR4/';
   family: string = 'smith';
-  given: string;
+  given: string = '';
 
   data: any;
   response: Observable<Bundle>;
@@ -25,10 +25,13 @@ export class AppComponent {
 
   search(url: string): void {
     this.error = null;
+
+
     this.response = this.client
       .get<Bundle>(`${url}Patient`, {
         params: {
-          family: 'smith',
+          family: this.family,
+          given: this.given,
         },
       })
       .pipe(

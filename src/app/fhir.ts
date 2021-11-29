@@ -1,5 +1,6 @@
 export interface Bundle {
   entry: Entry[];
+  total: number;
 }
 
 export interface Entry {

@@ -36,7 +36,10 @@
     *ngIf="response | async as bundle; else loadingOrError"
     class="container"
   >
-    <app-patients [entries]="bundle.entry"></app-patients>
+    <div *ngIf="bundle.total == 0; else patientList">No results</div>
+    <ng-template #patientList>
+      <app-patients [entries]="bundle.entry"></app-patients>
+    </ng-template>
   </div>
   <ng-template #loadingOrError>
     <div *ngIf="error != null; else loading">
