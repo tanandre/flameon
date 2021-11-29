@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -37,13 +37,25 @@ export class PatientsComponent implements OnInit {
   data: any;
   response: Observable<Bundle>;
 
+  @Input()
+  baseUrl: string;
+
+  ngOnChanges(changes: any) {
+    console.log(changes.baseUrl.currentValue);
+    this.search();
+  }
+
   constructor(private client: HttpClient) {
   }
 
   ngOnInit(): void {
     console.log(this);
+    this.search();
 
-    this.response = this.client.get<Bundle>("https://hapi.fhir.org/baseR4/Patient", {});
+  }
+
+  search(): void {
+    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {});
   }
 
 }

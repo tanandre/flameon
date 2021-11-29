@@ -7,8 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   url = 'https://hapi.fhir.org/baseR4/';
+  activeUrl: string;
   
   ngOnInit(): void {
-    console.log('test');
+    this.activeUrl = this.url;
+  }
+
+  search(url: string): void {
+    this.activeUrl = url;
+    console.log('search', url);
   }
 }
