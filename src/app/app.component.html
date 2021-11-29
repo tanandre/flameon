@@ -12,21 +12,16 @@
 </style>
 
 <div class="content" role="main">
-  <div>Server: <input type="search" [(ngModel)]="url" /></div>
+  <div>
+    Server:
+    <input type="search" [(ngModel)]="url" (keyup.enter)="search(url)" />
+  </div>
 
   <div class="form">
-    <div>
-      <label>
-        Family:
-        <input type="search" [(ngModel)]="family" />
-      </label>
-    </div>
-    <div>
-      <label>
-        Given:
-        <input type="search" [(ngModel)]="given" />
-      </label>
-    </div>
+    <label> Family: </label>
+    <input type="search" [(ngModel)]="family" (keyup.enter)="search(url)" />
+    <label> Given: </label>
+    <input type="search" [(ngModel)]="given" (keyup.enter)="search(url)" />
   </div>
 
   <div>
@@ -36,7 +31,7 @@
     *ngIf="response | async as bundle; else loadingOrError"
     class="container"
   >
-    <div *ngIf="bundle.total == 0; else patientList">No results</div>
+    <div *ngIf="bundle.total === 0; else patientList">No results</div>
     <ng-template #patientList>
       <app-patients [entries]="bundle.entry"></app-patients>
     </ng-template>
