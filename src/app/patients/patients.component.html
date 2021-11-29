@@ -1,11 +1,21 @@
-<div>patients works! 
-    <div *ngIf="response | async as bundle; else loading">{{bundle.entry.length}}
-        <div *ngFor="let entry of bundle.entry; index as i" >{{entry.resource.id}}
-            <div *ngFor="let name of entry.resource.name">{{name.given}}</div>
-            <div>{{entry.resource.birthDate}}</div>
-            <hr/>
+<div>
+    <h1>Patient List
+        <span *ngIf="response | async as bundle"> ({{bundle.entry.length}})</span>
+    </h1>
+    <div *ngIf="response | async as bundle; else loading">
+        <div *ngFor="let entry of bundle.entry; index as i">{{entry.resource.id}}
+            <div>
+                Name:<span *ngFor="let name of entry.resource.name">{{name.prefix}} {{name.given}} {{name.family}}</span>
+            </div>
+            <div>Birthdate: {{entry.resource.birthDate}}</div>
+            <a href="{{entry.fullUrl}}">Open</a>
+            <br/>
+            <a href="https://hapi.fhir.org/baseR4/DocumentReference?patient={{entry.resource.id}}">Documents</a>
+            <hr />
         </div>
     </div>
 
-    <ng-template #loading><div>loading</div></ng-template>
+    <ng-template #loading>
+        <div>loading</div>
+    </ng-template>
 </div>

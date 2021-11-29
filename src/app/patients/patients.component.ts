@@ -9,6 +9,7 @@ interface Bundle {
 
 interface Entry {
   resource: Patient
+  fullUrl: string
 }
 
 interface Patient {
@@ -20,7 +21,9 @@ interface Patient {
 }
 
 interface Name {
-  given: string[];
+  given: string[]
+  family: string,
+  prefix: string
 }
 
 @Component({
