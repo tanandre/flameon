@@ -57,7 +57,11 @@ export class PatientsComponent implements OnInit {
 
   search(): void {
     this.error = null;
-    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {}).pipe(catchError((err: any) => {
+    this.response = this.client.get<Bundle>(`${this.baseUrl}Patient`, {
+      params: {
+        family: 'smith'
+      }
+    }).pipe(catchError((err: any) => {
       this.error = err;
       return throwError(() => err);
     }));

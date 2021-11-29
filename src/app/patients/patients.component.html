@@ -2,16 +2,15 @@
     <h1>Patient List
         <span *ngIf="response | async as bundle"> ({{bundle.entry.length}})</span>
     </h1>
-    <div *ngIf="response | async as bundle; else loadingOrError">
-        <div *ngFor="let entry of bundle.entry; index as i">{{entry.resource.id}}
+    <div *ngIf="response | async as bundle; else loadingOrError" class="container">
+        <div *ngFor="let entry of bundle.entry; index as i" class="card">{{entry.resource.id}}
             <div>
                 Name:<span *ngFor="let name of entry.resource.name">{{name.prefix}} {{name.given}} {{name.family}}</span>
             </div>
             <div>Birthdate: {{entry.resource.birthDate}}</div>
             <a href="{{entry.fullUrl}}">Open</a>
             <br/>
-            <a href="https://hapi.fhir.org/baseR4/DocumentReference?patient={{entry.resource.id}}">Documents</a>
-            <hr />
+            <a href="{{baseUrl}}DocumentReference?patient={{entry.resource.id}}">Documents</a>
         </div>
     </div>
 
