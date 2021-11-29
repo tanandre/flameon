@@ -1,6 +1,5 @@
 # Flameon
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+A simple FHIR client using Angular and quering the public HAPI FHIR endpoint.
 
 ## Development server
 
