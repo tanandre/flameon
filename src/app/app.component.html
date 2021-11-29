@@ -1,19 +1,49 @@
 <style>
   :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-
 </style>
 
 <div class="content" role="main">
-  <input type="text" [(ngModel)]="url"><button (click)="search(url)">Search</button>
-  <app-patients [baseUrl]="activeUrl"></app-patients>
+  <div>Server: <input type="text" [(ngModel)]="url" /></div>
+
+  <div class="form">
+    <div>
+      <label>
+        Family:
+        <input type="text" [(ngModel)]="family" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Given:
+        <input type="text" [(ngModel)]="given" />
+      </label>
+    </div>
+  </div>
+
+  <div>
+    <button (click)="search(url)">Search</button>
+  </div>
+  <div
+    *ngIf="response | async as bundle; else loadingOrError"
+    class="container"
+  >
+    <app-patients [entries]="bundle.entry"></app-patients>
+  </div>
+  <ng-template #loadingOrError>
+    <div *ngIf="error != null; else loading">
+      An error occurred: {{ error.message }}
+    </div>
+    <ng-template #loading>loading...</ng-template>
+  </ng-template>
 </div>
 
 <router-outlet></router-outlet>
